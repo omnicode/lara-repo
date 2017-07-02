@@ -12,7 +12,7 @@ use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Contracts\TransactionInterface;
 use LaraRepo\Criteria\Criteria;
 use LaraRepo\Criteria\General\Order\SortCriteria;
-use LaraRepo\Criteria\General\Select\FillableCriteria;
+use LaraRepo\Criteria\General\Select\SelectFillableCriteria;
 use LaraRepo\Criteria\General\Select\SelectCriteria;
 use LaraRepo\Criteria\General\Where\ActiveCriteria;
 use LaraRepo\Criteria\General\Where\WhereCriteria;
@@ -491,7 +491,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function findFillable($id)
     {
-        $this->pushCriteria(new FillableCriteria(true));
+        $this->pushCriteria(new SelectFillableCriteria(true));
         return $this->find($id);
     }
 

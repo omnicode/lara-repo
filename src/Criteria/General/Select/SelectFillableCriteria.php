@@ -4,7 +4,7 @@ namespace LaraRepo\Criteria\General\Select;
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
 
-class FillableCriteria extends Criteria
+class SelectFillableCriteria extends Criteria
 {
     /**
      * @var mixed
