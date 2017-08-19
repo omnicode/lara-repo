@@ -9,13 +9,6 @@ use LaraRepo\Criteria\Criteria;
  */
 interface CriteriaInterface
 {
-
-    /**
-     * @param bool $status
-     * @return $this
-     */
-    public function skipCriteria($status = true);
-
     /**
      * @return mixed
      */
@@ -25,13 +18,24 @@ interface CriteriaInterface
      * @param Criteria $criteria
      * @return $this
      */
+
     public function getByCriteria(Criteria $criteria);
+    /**
+     * @return mixed
+     */
+    public function resetScope();
 
     /**
      * @param Criteria $criteria
      * @return $this
      */
     public function pushCriteria(Criteria $criteria);
+
+    /**
+     * @param bool $status
+     * @return $this
+     */
+    public function skipCriteria($status = true);
 
     /**
      * @return $this

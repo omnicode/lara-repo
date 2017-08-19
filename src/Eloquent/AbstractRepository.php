@@ -62,23 +62,16 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * @return $this
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function resetScope()
-    {
-        $this->skipCriteria(false);
-        return $this;
-    }
+    public abstract function modelClass();
 
-    /**
-     * @param bool $status
-     * @return $this
-     */
-    public function skipCriteria($status = true)
-    {
-        $this->skipCriteria = $status;
-        return $this;
-    }
+
+    /*************************************
+     *        RepositoryInterface        *
+     *************************************/
 
     /**
      * @return \Illuminate\Database\Eloquent\Builder
@@ -96,6 +89,22 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
         return $this->modelQuery = $model->newQuery();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * returns the table name for the given model
+     * @return mixed
+     */
+    public function getTable()
+    {
+        return $this->model->getTable();
+    }
 
     /**
      * @param $columns
@@ -113,11 +122,60 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * Specify Model class name
+     * returns the list of fillable fields
+     *
+     * @return array
+     */
+    public function getFillableColumns()
+    {
+        return $this->model->getFillable();
+    }
+
+    /**
+     * list of columns for showing on index page
+     *
+     * @return string
+     */
+    public function getIndexableColumns($full = null, $hidden = null)
+    {
+        return $this->model->getIndexable($full, $hidden);
+    }
+
+    /**
+     *
+     */
+    public function getSearchableColumns()
+    {
+        return $this->model->getSearchable();
+    }
+
+    /**
+     * columns used for model's find list
      *
      * @return mixed
      */
-    public abstract function modelClass();
+    public function getListableColumns()
+    {
+        return $this->model->getListable();
+    }
+
+    /**
+     * returns the list of sortable fields
+     *
+     * @return mixed
+     */
+    public function getSortableColumns($column = null)
+    {
+        return $this->model->getSortable($column);
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusColumn()
+    {
+        return $this->model->getStatusColumn();
+    }
 
     /**
      * @param null $column
@@ -141,44 +199,6 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * returns the list of sortable fields
-     *
-     * @return mixed
-     */
-    public function getSortableColumns($column = null)
-    {
-        return $this->model->getSortable($column);
-    }
-
-    /**
-     * @param Criteria $criteria
-     * @return $this
-     */
-    public function pushCriteria(Criteria $criteria)
-    {
-        $this->criteria->push($criteria);
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
-
-    /**
-     * returns the list of fillable fields
-     *
-     * @return array
-     */
-    public function getFillableColumns()
-    {
-        return $this->model->getFillable();
-    }
-
-    /**
      * returns the list of relations the model has
      *
      * @return array
@@ -188,84 +208,15 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
         return $this->model->_getRelations();
     }
 
-    /**
-     * @return string
-     */
-    public function getStatusColumn()
-    {
-        return $this->model->getStatusColumn();
-    }
 
     /**
-     * @param string $field
-     * @param string $value
-     * @param string $cmp
+     * @param $data
+     * @param array $options
      * @return mixed
      */
-    public function paginateWhere($field = '', $value = '', $cmp = '=')
+    public function saveAssociated($data, $options = [], $model = null)
     {
-        $this->pushCriteria(new WhereCriteria($field, $value, $cmp));
-        return $this->paginate();
-    }
-
-    /**
-     * @param int $perPage
-     * @param array $columns
-     * @return mixed
-     */
-    public function paginate($perPage = 20, $columns = [])
-    {
-        if (empty($columns)) {
-            $columns = $this->getIndexableColumns();
-        }
-
-        $this->applyCriteria();
-        return $this->modelQuery->paginate($perPage, $this->fixColumns($columns));
-    }
-
-    /**
-     * list of columns for showing on index page
-     *
-     * @return string
-     */
-    public function getIndexableColumns($full = null, $hidden = null)
-    {
-        return $this->model->getIndexable($full, $hidden);
-    }
-
-    /**
-     * @return $this
-     */
-    public function applyCriteria()
-    {
-        if ($this->skipCriteria === true) {
-            return $this;
-        }
-
-        foreach ($this->getCriteria() as $criteria) {
-            if ($criteria instanceof Criteria) {
-                $this->modelQuery = $criteria->apply($this->modelQuery, $this);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCriteria()
-    {
-        return $this->criteria;
-    }
-
-    /**
-     * returns the table name for the given model
-     * @return mixed
-     */
-    public function getTable()
-    {
-        return $this->model->getTable();
+        return $this->model->saveAssociated($data, $options, $model);
     }
 
     /**
@@ -297,10 +248,10 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function update(array $data, $id, $attribute = "id")
     {
+        $this->applyCriteria();
         return $this->modelQuery->where($this->fixColumns($attribute), '=',
             $id)->update($data);
     }
-
 
     /**
      * @param array $data
@@ -318,7 +269,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
                 $query->where($attribute, '=', $value);
             }
         }
-
+        $this->applyCriteria();
         return $query->update($data);
     }
 
@@ -329,6 +280,20 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     public function delete($id)
     {
         return $this->find($id)->delete();
+    }
+
+    /**
+     * @param array $columns
+     * @return mixed
+     */
+    public function all($columns = ['*'])
+    {
+        if (!empty($columns) && getFirstValue($columns) != '*') {
+            $this->pushCriteria(new SelectCriteria($columns));
+        }
+
+        $this->applyCriteria();
+        return $this->modelQuery->get();
     }
 
     /**
@@ -347,76 +312,17 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $id
-     * @param $field
-     * @return bool
-     */
-    public function findField($id, $field)
-    {
-        $data = $this->find($id, [$field]);
-
-        if (!empty($data)) {
-            return $data[$field];
-        }
-
-        return false;
-    }
-
-    /**
-     * @param bool|false $active
-     * @param array $listable
-     * @return mixed
-     */
-    public function findList($active = true, $listable = [])
-    {
-        if (empty($listable)) {
-            $listable = $this->getListableColumns();
-        }
-
-        if ($active) {
-            $this->pushCriteria(new ActiveCriteria());
-        }
-
-        if (!empty($listable['relations'])) {
-            $this->pushCriteria(new RelationCriteria($listable['relations']));
-        }
-
-        return $this->all($this->fixColumns($listable['columns']))->pluck($listable['value'], $listable['key'])->toArray();
-    }
-
-    /**
-     * @param $attribute
-     * @param $value
-     * @param bool|true $active
-     * @return mixed
-     */
-    public function findListBy($attribute, $value, $active = true)
-    {
-        $this->pushCriteria(new WhereCriteria($attribute, $value));
-        return $this->findList($active);
-    }
-
-    /**
-     * columns used for model's find list
-     *
-     * @return mixed
-     */
-    public function getListableColumns()
-    {
-        return $this->model->getListable();
-    }
-
-    /**
      * @param array $columns
      * @return mixed
      */
-    public function all($columns = ['*'])
+    public function find($id, $columns = ['*'])
     {
         if (!empty($columns) && getFirstValue($columns) != '*') {
             $this->pushCriteria(new SelectCriteria($columns));
         }
 
         $this->applyCriteria();
-        return $this->modelQuery->get();
+        return $this->modelQuery->find($id);
     }
 
     /**
@@ -446,27 +352,31 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * @param $attribute
-     * @param $value
-     * @param array $columns
+     * @param $id
+     * @param $field
+     * @return bool
      */
-    private function findByCriteria($attribute, $value, $columns = ['*'])
+    public function findField($id, $field)
     {
-        $this->pushCriteria(new WhereCriteria($attribute, $value));
+        $data = $this->find($id, [$field]);
 
-        if (!empty($columns) && getFirstValue($columns) !== '*') {
-            $this->pushCriteria(new SelectCriteria($columns));
+        if (!empty($data)) {
+            return $data[$field];
         }
+
+        return false;
     }
 
     /**
-     * @param Criteria $criteria
-     * @return $this
+     * find by id - only fillable columns
+     *
+     * @param $id
+     * @return mixed
      */
-    public function getByCriteria(Criteria $criteria)
+    public function findFillable($id)
     {
-        $this->modelQuery = $criteria->apply($this->modelQuery, $this);
-        return $this;
+        $this->pushCriteria(new SelectFillableCriteria(true));
+        return $this->find($id);
     }
 
     /**
@@ -484,40 +394,78 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * find by id - only fillable columns
-     *
      * @param $id
+     * @param $field
+     * @param $value
+     * @param string $cmp
      * @return mixed
      */
-    public function findFillable($id)
+    public function findFillableWhere($id, $field, $value, $cmp = '=')
     {
-        $this->pushCriteria(new SelectFillableCriteria(true));
-        return $this->find($id);
+        $this->pushCriteria(new WhereCriteria($field, $value, $cmp));
+        return $this->findFillable($id);
     }
 
     /**
-     * @param $id
+     * @param bool|false $active
+     * @param array $listable
+     * @return mixed
+     */
+    public function findList($active = true, $listable = [])
+    {
+        if (empty($listable)) {
+            $listable = $this->getListableColumns();
+        }
+
+        if ($active) {
+            $this->pushCriteria(new ActiveCriteria());
+        }
+
+        if (!empty($listable['relations'])) {
+            $this->pushCriteria(new RelationCriteria($listable['relations']));
+        }
+
+
+        return $this->all($this->fixColumns($listable['columns']))->pluck($listable['value'], $listable['key'])->toArray();
+    }
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @param bool|true $active
+     * @return mixed
+     */
+    public function findListBy($attribute, $value, $active = true)
+    {
+        $this->pushCriteria(new WhereCriteria($attribute, $value));
+        return $this->findList($active);
+    }
+
+    /**
+     * @param int $perPage
      * @param array $columns
      * @return mixed
      */
-    public function find($id, $columns = ['*'])
+    public function paginate($perPage = 20, $columns = [])
     {
-        if (!empty($columns) && getFirstValue($columns) != '*') {
-            $this->pushCriteria(new SelectCriteria($columns));
+        if (empty($columns)) {
+            $columns = $this->getIndexableColumns();
         }
 
         $this->applyCriteria();
-        return $this->modelQuery->find($id);
+        return $this->modelQuery->paginate($perPage, $this->fixColumns($columns));
     }
 
     /**
-     * @param $id
-     * @return bool
+     * @param string $field
+     * @param string $value
+     * @param string $cmp
+     * @return mixed
      */
-    public function exists($id)
+    public function paginateWhere($field = '', $value = '', $cmp = '=')
     {
-        $this->pushCriteria(new WhereCriteria('id', $id));
-        return $this->findCount() > 0 ? true : false;
+        $this->pushCriteria(new WhereCriteria($field, $value, $cmp));
+        return $this->paginate();
     }
 
     /**
@@ -543,26 +491,100 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $id
-     * @param $field
-     * @param $value
-     * @param string $cmp
-     * @return mixed
+     * @return bool
      */
-    public function findFillableWhere($id, $field, $value, $cmp = '=')
+    public function exists($id)
     {
-        $this->pushCriteria(new WhereCriteria($field, $value, $cmp));
-        return $this->findFillable($id);
+        $this->pushCriteria(new WhereCriteria('id', $id));
+        return $this->findCount() > 0 ? true : false;
     }
 
     /**
-     * @param $data
-     * @param array $options
+     * @param $attribute
+     * @param $value
+     * @param array $columns
+     */
+    private function findByCriteria($attribute, $value, $columns = ['*'])
+    {
+        $this->pushCriteria(new WhereCriteria($attribute, $value));
+
+        if (!empty($columns) && getFirstValue($columns) !== '*') {
+            $this->pushCriteria(new SelectCriteria($columns));
+        }
+    }
+
+    /*************************************
+     *         CriteriaInterface         *
+     *************************************/
+
+    /**
      * @return mixed
      */
-    public function saveAssociated($data, $options = [], $model = null)
+    public function getCriteria()
     {
-        return $this->model->saveAssociated($data, $options, $model);
+        return $this->criteria;
     }
+
+    /**
+     * @param Criteria $criteria
+     * @return $this
+     */
+    public function getByCriteria(Criteria $criteria)
+    {
+        $this->modelQuery = $criteria->apply($this->modelQuery, $this);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetScope()
+    {
+        $this->skipCriteria(false);
+        return $this;
+    }
+
+    /**
+     * @param Criteria $criteria
+     * @return $this
+     */
+    public function pushCriteria(Criteria $criteria)
+    {
+        $this->criteria->push($criteria);
+        return $this;
+    }
+
+    /**
+     * @param bool $status
+     * @return $this
+     */
+    public function skipCriteria($status = true)
+    {
+        $this->skipCriteria = $status;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function applyCriteria()
+    {
+        if ($this->skipCriteria === true) {
+            return $this;
+        }
+
+        foreach ($this->getCriteria() as $criteria) {
+            if ($criteria instanceof Criteria) {
+                $this->modelQuery = $criteria->apply($this->modelQuery, $this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**************************************
+     *        TransactionInterface        *
+     **************************************/
 
     /**
      * @return mixed

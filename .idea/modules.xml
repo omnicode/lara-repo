@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../lara-form/.idea/lara-form.iml" filepath="$PROJECT_DIR$/../lara-form/.idea/lara-form.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lara-repo.iml" filepath="$PROJECT_DIR$/.idea/lara-repo.iml" />
+      <module fileurl="file://D:/xampp/htdocs/laravel/mdd/.idea/mdd.iml" filepath="D:/xampp/htdocs/laravel/mdd/.idea/mdd.iml" />
+    </modules>
+  </component>
+</project>
