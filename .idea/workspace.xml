@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba33ddc0-b239-4bb4-b057-92fa76145f0f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/General/Distinct/DistinctCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/General/Search/SearchCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/WhereHasRelationCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/General/With/WithCountCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/AbstractRepositoryTest.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/LICENSE" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Contracts/CriteriaInterface.php" afterPath="$PROJECT_DIR$/src/Contracts/CriteriaInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Contracts/RepositoryInterface.php" afterPath="$PROJECT_DIR$/src/Contracts/RepositoryInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Contracts/TransactionInterface.php" afterPath="$PROJECT_DIR$/src/Contracts/TransactionInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/Criteria.php" afterPath="$PROJECT_DIR$/src/Criteria/Criteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Group/GroupByCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Group/GroupByCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinRelationCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinRelationCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Join/LeftJoinCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Join/LeftJoinCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Order/SortCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Order/SortCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Select/SelectCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Select/SelectCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Select/SelectFillableCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Select/SelectFillableCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Select/SelectRelationCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Select/SelectRelationCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Where/ActiveCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/ActiveCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Where/BetweenCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/BetweenCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Where/OrWhereCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/OrWhereCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Where/WhereCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/WhereCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Where/WhereInCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/WhereInCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Where/WhereRelationCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/WhereRelationCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/With/RelationCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/With/RelationCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Eloquent/AbstractRepository.php" afterPath="$PROJECT_DIR$/src/Eloquent/AbstractRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Exceptions/RepositoryException.php" afterPath="$PROJECT_DIR$/src/Exceptions/RepositoryException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/mdd/app/Repositories/src/Contracts/BaseRepositoryInterface.php" afterPath="D:/xampp/htdocs/laravel/mdd/app/Repositories/src/Contracts/BaseRepositoryInterface.php" />
       <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/mdd/app/Repositories/src/Criteria/General/SearchCriteria.php" afterPath="D:/xampp/htdocs/laravel/mdd/app/Repositories/src/Criteria/General/SearchCriteria.php" />
       <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/mdd/app/Repositories/src/Eloquent/BaseRepository.php" afterPath="D:/xampp/htdocs/laravel/mdd/app/Repositories/src/Eloquent/BaseRepository.php" />
@@ -156,8 +130,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="301" />
-    <option name="y" value="25" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
@@ -278,174 +252,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="General" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Criteria" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Criteria" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="General" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="With" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Criteria" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="General" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Where" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Criteria" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="General" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Criteria" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="General" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Search" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lara-repo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Criteria" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="General" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Distinct" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -571,18 +377,17 @@
       <workItem from="1500478359845" duration="598000" />
       <workItem from="1502729419564" duration="695000" />
       <workItem from="1502730117476" duration="853000" />
-      <workItem from="1503126896773" duration="329000" />
+      <workItem from="1503126896773" duration="488000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6820000" />
+    <option name="totallyTimeSpent" value="6979000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="301" y="25" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2677761" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2677761" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

@@ -66,6 +66,7 @@ class RelationCriteria extends Criteria
                         $firstRelated = $query->getRelated();
                         $columns = [
                             $firstRelated->getKeyName(),
+                            dd(4),
                             $query->getForeignKey()
                         ];
 
@@ -80,7 +81,7 @@ class RelationCriteria extends Criteria
 
                 // @TODO - create constants by relationship names
                 if (in_array(LaraUtil::getRelationType($relation), ['HasMany', 'BelongsToMany'])) {
-                    $foreignKeyColumn = $relation->getForeignKey();
+                    $foreignKeyColumn = $this->getRelationForeginKeyName($relation);
                 }
             }
 
@@ -140,4 +141,17 @@ class RelationCriteria extends Criteria
         return $modelQuery->with(array_merge($extraRelations, $relations));
     }
 
+    /**
+     * @param $relation
+     * @return mixed
+     */
+    private function getRelationForeginKeyName($relation) {
+        if(in_array('getQualifiedForeignKeyName', get_class_methods($relation))) {
+            // for Laravel 5.4
+            return $relation->getQualifiedForeignKeyName();
+        }
+
+        // for Laravel < 5.4
+        return $relation->getForeignKey();
+    }
 }
