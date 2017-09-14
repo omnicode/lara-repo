@@ -3,7 +3,7 @@ namespace LaraRepo\Criteria\General\Where;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
-use MyDevData\Repositories\Criteria\Traits\RelationTraitCriteria;
+use LaraRepo\Criteria\Traits\RelationTraitCriteria;
 
 class WhereHasRelationCriteria extends Criteria
 {

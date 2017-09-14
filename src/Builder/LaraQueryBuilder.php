@@ -6,6 +6,10 @@ use Illuminate\Database\Query\Builder;
 
 class LaraQueryBuilder extends Builder
 {
+    /***
+     * @param array|mixed $column
+     * @return $this
+     */
     public function addSelect($column)
     {
         if (!is_array($column)) {
@@ -16,7 +20,8 @@ class LaraQueryBuilder extends Builder
                 unset($column[$index]);
             }
         }
-        return parent::addSelect($column);
+        parent::addSelect($column);
+        return $this;
     }
 
 }

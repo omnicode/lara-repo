@@ -6,7 +6,6 @@ use LaraRepo\Criteria\Criteria;
 
 class DistinctCriteria extends Criteria
 {
-
     /**
      * @param $modelQuery
      * @param RepositoryInterface $repository

@@ -7,7 +7,6 @@ use LaraRepo\Criteria\Criteria;
 
 class InnerJoinCriteria extends Criteria
 {
-
     /**
      * @var
      */

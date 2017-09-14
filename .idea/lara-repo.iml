@@ -16,5 +16,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="lara-form" />
+    <orderEntry type="module" module-name="so3" />
   </component>
 </module>
