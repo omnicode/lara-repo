@@ -2,32 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba33ddc0-b239-4bb4-b057-92fa76145f0f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Builder/LaraEloquentBuilder.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/Has/HasCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/Limit/LimitCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/Offset/OffsetCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/Traits/RelationTraitCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/Traits/WhereInTraitCriteria.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Criteria/With/WithCountCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Builder/LaraQueryBuilder.php" afterPath="$PROJECT_DIR$/src/Builder/LaraQueryBuilder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Distinct/DistinctCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Distinct/DistinctCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinRelationCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Join/InnerJoinRelationCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Join/LeftJoinCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Join/LeftJoinCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/Where/WhereHasRelationCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/Where/WhereHasRelationCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Criteria/General/With/WithCountCriteria.php" afterPath="$PROJECT_DIR$/src/Criteria/General/With/WithCountCriteria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/LaraModel.php" afterPath="$PROJECT_DIR$/src/Model/LaraModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/mdd/composer.lock" afterPath="D:/xampp/htdocs/laravel/mdd/composer.lock" />
       <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/mdd/tests/Services/Admin/Lists/CountryServiceTest.php" afterPath="D:/xampp/htdocs/laravel/mdd/tests/Services/Admin/Lists/CountryServiceTest.php" />
       <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/mdd/tests/Services/BaseServiceTest.php" afterPath="D:/xampp/htdocs/laravel/mdd/tests/Services/BaseServiceTest.php" />
-      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/app/Models/BaseModel.php" afterPath="D:/xampp/htdocs/laravel/so3/app/Models/BaseModel.php" />
-      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/app/Repositories/Criteria/WithCountCriteria.php" afterPath="D:/xampp/htdocs/laravel/so3/app/Repositories/Criteria/WithCountCriteria.php" />
-      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/app/Repositories/Criteria/WithOrderByCountRelationCriteria.php" afterPath="D:/xampp/htdocs/laravel/so3/app/Repositories/Criteria/WithOrderByCountRelationCriteria.php" />
-      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/app/Repositories/Eloquent/Question/QuestionRepository.php" afterPath="D:/xampp/htdocs/laravel/so3/app/Repositories/Eloquent/Question/QuestionRepository.php" />
-      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/app/Services/Lists/TagService.php" afterPath="D:/xampp/htdocs/laravel/so3/app/Services/Lists/TagService.php" />
-      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/app/Services/Question/QuestionService.php" afterPath="D:/xampp/htdocs/laravel/so3/app/Services/Question/QuestionService.php" />
-      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/app/Services/User/UserService.php" afterPath="D:/xampp/htdocs/laravel/so3/app/Services/User/UserService.php" />
+      <change type="MODIFICATION" beforePath="D:/xampp/htdocs/laravel/so3/composer.lock" afterPath="D:/xampp/htdocs/laravel/so3/composer.lock" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -83,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/src/Criteria/With/WithCountCriteria.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -93,7 +72,7 @@
         <entry file="file://D:/xampp/htdocs/laravel/so3/app/Repositories/Eloquent/BaseRepository.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,7 +82,7 @@
         <entry file="file://D:/xampp/htdocs/laravel/so3/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="339">
-              <caret line="306" column="7" lean-forward="true" selection-start-line="306" selection-start-column="7" selection-end-line="306" selection-end-column="7" />
+              <caret line="306" column="7" lean-forward="false" selection-start-line="306" selection-start-column="7" selection-end-line="306" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -362,12 +341,12 @@
       <workItem from="1502729419564" duration="695000" />
       <workItem from="1502730117476" duration="853000" />
       <workItem from="1503126896773" duration="488000" />
-      <workItem from="1505351241480" duration="225000" />
+      <workItem from="1505351241480" duration="653000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7204000" />
+    <option name="totallyTimeSpent" value="7632000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -771,7 +750,7 @@
     <entry file="file://D:/xampp/htdocs/laravel/so3/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
-          <caret line="306" column="7" lean-forward="true" selection-start-line="306" selection-start-column="7" selection-end-line="306" selection-end-column="7" />
+          <caret line="306" column="7" lean-forward="false" selection-start-line="306" selection-start-column="7" selection-end-line="306" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -787,7 +766,7 @@
     <entry file="file://$PROJECT_DIR$/src/Criteria/With/WithCountCriteria.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -795,7 +774,7 @@
     <entry file="file://D:/xampp/htdocs/laravel/so3/app/Repositories/Eloquent/BaseRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>

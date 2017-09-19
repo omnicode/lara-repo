@@ -66,7 +66,6 @@ class RelationCriteria extends Criteria
                         $firstRelated = $query->getRelated();
                         $columns = [
                             $firstRelated->getKeyName(),
-                            dd(4),
                             $query->getForeignKey()
                         ];
 
