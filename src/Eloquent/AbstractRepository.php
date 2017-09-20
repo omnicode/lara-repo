@@ -269,7 +269,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
                 $query->where($attribute, '=', $value);
             }
         }
-        $this->applyCriteria();
+
         return $query->update($data);
     }
 
@@ -550,7 +550,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function pushCriteria(Criteria $criteria)
     {
-        $this->criteria->push($criteria);
+        if (!in_array($criteria, $this->criteria->toArray())) {
+            $this->criteria->push($criteria);
+        }
         return $this;
     }
 
