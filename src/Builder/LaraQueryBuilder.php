@@ -36,6 +36,10 @@ class LaraQueryBuilder extends Builder
         $parentCall = true;
         if (!empty($this->wheres)) {
             foreach ($this->wheres as $where) {
+                if ($where['type'] != 'basic') {
+                    continue;
+                }
+
                 if($column == $where['column'] && $operator == $where['operator'] && $boolean == $where['boolean']) {
                     if ($value == $where['value']) {
                         $parentCall = false;
