@@ -44,7 +44,7 @@ class WithCountCriteria extends Criteria
                 throw new \Exception(sprintf('%s is not associated with %s', $repository->getTable(), $relation ));
             }
 
-            $modelQuery->withCount([$relation . ' AS ' . $repository->fixColumns($relation) => function($query) {
+            $modelQuery->withCount([$relation => function($query) {
 
             }]);
 
@@ -55,7 +55,7 @@ class WithCountCriteria extends Criteria
                     }
                     $modelQuery->withCount(
                         [
-                            $relation . ' AS ' . $repository->fixColumns($preCountName ) => function ($query) use ($countData) {
+                            $relation . ' AS ' . $preCountName => function ($query) use ($countData) {
                                 if (!empty($countData['where'])) {
                                     $where = $countData['where'];
                                     $query->where($where[0], $where[2], $where[1]);

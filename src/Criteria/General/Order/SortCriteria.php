@@ -17,10 +17,15 @@ class SortCriteria extends Criteria
     private $order;
 
     /**
+     * @var
+     */
+    private $fixColumns;
+
+    /**
      * @param $column
      * @param $order
      */
-    public function __construct($column, $order = 'asc')
+    public function __construct($column, $order = 'asc', $fixColumns = true)
     {
         $this->column = $column;
         $this->order = $order;
@@ -33,7 +38,11 @@ class SortCriteria extends Criteria
      */
     public function apply($modelQuery, RepositoryInterface $repository)
     {
-        return $modelQuery->orderBy($repository->fixColumns($this->column), $this->order);
+        if ($this->fixColumns) {
+            return $modelQuery->orderBy($repository->fixColumns($this->column), $this->order);
+        }
+
+        return $modelQuery->orderBy($this->column, $this->order);
     }
 
 }

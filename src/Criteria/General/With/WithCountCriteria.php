@@ -8,7 +8,6 @@ use MyDevData\Scopes\AccountScope;
 
 class WithCountCriteria extends Criteria
 {
-    // @ TODO move class in LaraRepo
     /**
      * @var
      */
