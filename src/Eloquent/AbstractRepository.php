@@ -260,6 +260,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function updateAll(array $data, array $conditions)
     {
+        $this->applyCriteria();
         $query = $this->modelQuery;
 
         foreach ($conditions as $attribute => $value) {
