@@ -3,8 +3,6 @@ namespace LaraRepo\Criteria\General\With;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
-use LaraRepo\Criteria\General\With\RelationCriteria;
-use MyDevData\Scopes\AccountScope;
 
 class WithCountCriteria extends Criteria
 {

@@ -11,13 +11,13 @@ use LaraRepo\Contracts\CriteriaInterface;
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Contracts\TransactionInterface;
 use LaraRepo\Criteria\Criteria;
-use LaraRepo\Criteria\General\Order\SortCriteria;
-use LaraRepo\Criteria\General\Select\SelectFillableCriteria;
-use LaraRepo\Criteria\General\Select\SelectCriteria;
-use LaraRepo\Criteria\General\Where\ActiveCriteria;
-use LaraRepo\Criteria\General\Where\WhereCriteria;
-use LaraRepo\Criteria\General\Where\WhereInCriteria;
-use LaraRepo\Criteria\General\With\RelationCriteria;
+use LaraRepo\Criteria\Order\SortCriteria;
+use LaraRepo\Criteria\Select\SelectFillableCriteria;
+use LaraRepo\Criteria\Select\SelectCriteria;
+use LaraRepo\Criteria\Where\ActiveCriteria;
+use LaraRepo\Criteria\Where\WhereCriteria;
+use LaraRepo\Criteria\Where\WhereInCriteria;
+use LaraRepo\Criteria\With\RelationCriteria;
 use LaraRepo\Exceptions\RepositoryException;
 
 abstract class AbstractRepository implements RepositoryInterface, CriteriaInterface, TransactionInterface
