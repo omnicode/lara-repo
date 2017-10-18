@@ -1,11 +1,11 @@
 <?php
-namespace LaraRepo\Criteria\General\Join;
+namespace LaraRepo\Criteria\Join;
 
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
 
-class LeftJoinCriteria extends Criteria
+class InnerJoinCriteria extends Criteria
 {
     /**
      * @var
@@ -56,7 +56,7 @@ class LeftJoinCriteria extends Criteria
 
         $related = $repository->getRelations()[$this->relation];
         $table = $related->getRelated()->getTable();
-        $modelQuery->leftJoin($table, $repository->fixColumns('id'), '=', $related->getForeignKey());
+        $modelQuery->join($table, $repository->fixColumns('id'), '=', $related->getForeignKey());
 
         if ($this->column && $this->values) {
             $modelQuery->whereIn($repository->fixColumns($this->column, $table), $this->values);

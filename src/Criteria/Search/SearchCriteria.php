@@ -1,5 +1,5 @@
 <?php
-namespace LaraRepo\Criteria\General\Search;
+namespace LaraRepo\Criteria\Search;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;

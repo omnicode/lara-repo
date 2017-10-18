@@ -1,5 +1,5 @@
 <?php
-namespace LaraRepo\Criteria\General\Select;
+namespace LaraRepo\Criteria\Select;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;

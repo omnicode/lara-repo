@@ -1,44 +1,42 @@
 <?php
-namespace LaraRepo\Criteria\General\Where;
+namespace LaraRepo\Criteria\Select;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
 
-class WhereRelationCriteria extends Criteria
+class SelectRelationCriteria extends Criteria
 {
-
     /**
-     * @var
+     * @var array
      */
     private $relation;
 
     /**
-     * @var string
+     * @var
      */
-    private $attribute;
+    private $columns;
 
     /**
-     * @var string
+     * @var
      */
-    private $value;
-
-    /**
-     * @var string
-     */
-    private $comparison;
+    private $prefix;
 
     /**
      * @param $relation
-     * @param $attribute
-     * @param $value
-     * @param string $cmp
+     * @param $columns
+     * @param bool|false $prefix
      */
-    public function __construct($relation, $attribute, $value, $cmp = '=')
+    public function __construct($relation, $columns, $prefix = true)
     {
+        if (!is_array($columns)) {
+            $columns = [
+                $columns
+            ];
+        }
+
         $this->relation = $relation;
-        $this->attribute = $attribute;
-        $this->value = $value;
-        $this->comparison = $cmp;
+        $this->columns = $columns;
+        $this->prefix = $prefix;
     }
 
     /**
@@ -58,7 +56,7 @@ class WhereRelationCriteria extends Criteria
         $related = $relations[$this->relation]->getRelated();
         $table = $related->getTable();
 
-        return $modelQuery->where($repository->fixColumns($this->attribute, $table), $this->comparison, $this->value);
+        return $modelQuery->addSelect($repository->fixColumns($this->columns, $table, $this->prefix));
     }
 
 }

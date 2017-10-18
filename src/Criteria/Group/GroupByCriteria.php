@@ -1,26 +1,20 @@
 <?php
-namespace LaraRepo\Criteria\General\Select;
+namespace LaraRepo\Criteria\Group;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
 
-class SelectCriteria extends Criteria
+class GroupByCriteria extends Criteria
 {
     /**
-     * @var array
+     * @var
      */
     private $columns;
 
     /**
-     * @var
+     * @param $columns
      */
-    private $table;
-
-    /**
-     * @param array $columns
-     * @param $table
-     */
-    public function __construct($columns = [], $table = null)
+    public function __construct($columns)
     {
         if (!is_array($columns)) {
             $columns = [
@@ -29,7 +23,6 @@ class SelectCriteria extends Criteria
         }
 
         $this->columns = $columns;
-        $this->table = $table;
     }
 
     /**
@@ -39,11 +32,11 @@ class SelectCriteria extends Criteria
      */
     public function apply($modelQuery, RepositoryInterface $repository)
     {
-        if (empty($this->table)) {
-            $this->table = $repository->getTable();
+        foreach ($this->columns as $column) {
+            $modelQuery->groupBy($repository->fixColumns($column));
         }
 
-        return $modelQuery->addSelect($repository->fixColumns($this->columns, $this->table));
+        return $modelQuery;
     }
 
 }

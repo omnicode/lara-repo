@@ -1,5 +1,5 @@
 <?php
-namespace LaraRepo\Criteria\General\Distinct;
+namespace LaraRepo\Criteria\Distinct;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;

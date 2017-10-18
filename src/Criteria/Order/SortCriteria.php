@@ -1,5 +1,5 @@
 <?php
-namespace LaraRepo\Criteria\General\Order;
+namespace LaraRepo\Criteria\Order;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;

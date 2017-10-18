@@ -1,5 +1,5 @@
 <?php
-namespace LaraRepo\Criteria\General\With;
+namespace LaraRepo\Criteria\With;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;

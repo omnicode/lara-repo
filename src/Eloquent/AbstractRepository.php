@@ -280,7 +280,13 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function delete($id)
     {
-        return $this->find($id)->delete();
+        $model = $this->find($id);
+
+        if (!empty($model)) {
+            return $this->find($id)->delete();
+        }
+
+        return false;
     }
 
     /**
