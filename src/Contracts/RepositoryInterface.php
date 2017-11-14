@@ -63,7 +63,7 @@ interface RepositoryInterface
 
     public function findListBy($attribute, $value, $active = true);
 
-    public function paginate($perPage = 15, $columns = ['*']);
+    public function paginate($perPage = 15, $columns = ['*'], $group = 'list');
 
     public function paginateWhere($field, $value, $cmp);
 

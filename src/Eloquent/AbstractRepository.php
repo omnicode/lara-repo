@@ -453,10 +453,10 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param array $columns
      * @return mixed
      */
-    public function paginate($perPage = 20, $columns = [])
+    public function paginate($perPage = 20, $columns = [], $group = 'list')
     {
         if (empty($columns)) {
-            $columns = $this->getIndexableColumns();
+            $columns = $this->getIndexableColumns(null, null, $group);
         }
 
         $this->applyCriteria();
