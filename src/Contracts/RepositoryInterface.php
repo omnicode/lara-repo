@@ -14,17 +14,17 @@ interface RepositoryInterface
 
     public function getFillableColumns();
 
-    public function getIndexableColumns($full = null, $hidden = null);
+    public function getIndexableColumns($full = null, $hidden = null, $group = 'list');
 
     public function getSearchableColumns();
 
     public function getListableColumns();
 
-    public function getSortableColumns($column = null);
+    public function getSortableColumns($column = null, $group = 'list');
 
     public function getStatusColumn();
 
-    public function setSortingOptions();
+    public function setSortingOptions($column = null, $order = 'asc', $group = 'list');
 
     public function getRelations();
 

@@ -136,9 +136,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      *
      * @return string
      */
-    public function getIndexableColumns($full = null, $hidden = null)
+    public function getIndexableColumns($full = null, $hidden = null, $group = 'list')
     {
-        return $this->model->getIndexable($full, $hidden);
+        return $this->model->getIndexable($full, $hidden, $group);
     }
 
     /**
@@ -164,9 +164,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      *
      * @return mixed
      */
-    public function getSortableColumns($column = null)
+    public function getSortableColumns($column = null, $group = 'list')
     {
-        return $this->model->getSortable($column);
+        return $this->model->getSortable($column, $group = 'list');
     }
 
     /**
@@ -182,7 +182,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param string $order
      * @return bool
      */
-    public function setSortingOptions($column = null, $order = 'asc')
+    public function setSortingOptions($column = null, $order = 'asc', $group = 'list')
     {
         if ($column === null) {
             return true;
@@ -191,7 +191,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
         $column = strtolower($column);
 
         // check if column is allowed to be sorted
-        if ($this->getSortableColumns($column)) {
+        if ($this->getSortableColumns($column, $group)) {
             $order = strtolower($order);
             $order = $order == 'desc' ? $order : 'asc';
             $this->pushCriteria(new SortCriteria($column, $order));
@@ -451,9 +451,10 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     /**
      * @param int $perPage
      * @param array $columns
+     * @param string $group
      * @return mixed
      */
-    public function paginate($perPage = 20, $columns = [], $group = 'list')
+    public function paginate($perPage = 20, $columns = ['*'], $group = 'list')
     {
         if (empty($columns)) {
             $columns = $this->getIndexableColumns(null, null, $group);
