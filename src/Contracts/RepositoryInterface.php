@@ -68,7 +68,7 @@ interface RepositoryInterface
     public function paginateWhere($field, $value, $cmp);
 
 
-    public function findCount($attribute, $value, $cmp);
+    public function findCount($attribute = null, $value = null, $cmp = '=');
 
     public function exists($id);
 
