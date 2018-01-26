@@ -38,11 +38,28 @@ class SortCriteria extends Criteria
      */
     public function apply($modelQuery, RepositoryInterface $repository)
     {
+        if (is_array($this->column)) {
+            foreach ($this->column as $column => $order) {
+                if ($this->fixColumns) {
+                    $modelQuery->orderBy($repository->fixColumns($column), $order);
+                }
+
+                $modelQuery->orderBy($column, $order);
+            }
+
+            return $modelQuery;
+        }
+
         if ($this->fixColumns) {
             return $modelQuery->orderBy($repository->fixColumns($this->column), $this->order);
         }
 
         return $modelQuery->orderBy($this->column, $this->order);
+    }
+
+    protected function sort()
+    {
+
     }
 
 }
