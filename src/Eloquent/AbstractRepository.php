@@ -5,11 +5,13 @@ use Illuminate\Container\Container as App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+
 use LaraTools\Utility\LaraUtil;
 
 use LaraRepo\Contracts\CriteriaInterface;
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Contracts\TransactionInterface;
+
 use LaraRepo\Criteria\Criteria;
 use LaraRepo\Criteria\Order\SortCriteria;
 use LaraRepo\Criteria\Select\SelectFillableCriteria;
@@ -18,6 +20,7 @@ use LaraRepo\Criteria\Where\ActiveCriteria;
 use LaraRepo\Criteria\Where\WhereCriteria;
 use LaraRepo\Criteria\Where\WhereInCriteria;
 use LaraRepo\Criteria\With\RelationCriteria;
+
 use LaraRepo\Exceptions\RepositoryException;
 
 abstract class AbstractRepository implements RepositoryInterface, CriteriaInterface, TransactionInterface
@@ -257,7 +260,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param $value
      * @return mixed
      */
-    public function createWith(array $data = [], $field, $value)
+    public function createWith(array $data, $field, $value)
     {
         $data[$field] = $value;
         return $this->create($data);
@@ -542,7 +545,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param string $group
      * @return mixed
      */
-    public function paginate($perPage = 20, $columns = [], $group = 'list')
+    public function paginate($perPage = 15, $columns = [], $group = 'list')
     {
         if (empty($columns)) {
             $columns = $this->getIndexableColumns(false, true, $group);

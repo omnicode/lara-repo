@@ -3,6 +3,7 @@ namespace LaraRepo\Contracts;
 
 interface RepositoryInterface
 {
+
     /**
      * @return mixed
      */
@@ -213,10 +214,10 @@ interface RepositoryInterface
 
     /**
      * @param $id
-     * @param array $options
+     * @param array $related
      * @return mixed
      */
-    public function findFillableWith($id, $options = []);
+    public function findFillableWith($id, $related = []);
 
     /**
      * @param $id
@@ -229,10 +230,10 @@ interface RepositoryInterface
 
     /**
      * @param bool $active
-     * @param array $columns
+     * @param array $listable
      * @return mixed
      */
-    public function findList($active = true, $columns = []);
+    public function findList($active = true, $listable = []);
 
     /**
      * @param $attribute
@@ -248,7 +249,7 @@ interface RepositoryInterface
      * @param string $group
      * @return mixed
      */
-    public function paginate($perPage = 15, $columns = ['*'], $group = 'list');
+    public function paginate($perPage = 15, $columns = [], $group = 'list');
 
     /**
      * @param $field
@@ -256,7 +257,7 @@ interface RepositoryInterface
      * @param $cmp
      * @return mixed
      */
-    public function paginateWhere($field, $value, $cmp);
+    public function paginateWhere($field = '', $value = '', $cmp = '=');
 
     /**
      * @param null $attribute
@@ -273,10 +274,11 @@ interface RepositoryInterface
     public function exists($id);
 
     /**
-     * @param $column
+     * @param $attribute
      * @param $value
      * @return mixed
      */
-    public function existsWhere($column, $value);
+    public function existsWhere($attribute, $value);
+
 
 }
