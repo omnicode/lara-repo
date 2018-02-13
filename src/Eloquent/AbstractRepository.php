@@ -161,9 +161,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     {
         return $this->model->getShowable($full, $hidden, $group);
     }
-
-
-
+    
     /**
      *
      */
