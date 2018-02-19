@@ -27,7 +27,8 @@ class LimitCriteria extends Criteria
      */
     public function apply($modelQuery, RepositoryInterface $repository)
     {
-        return $modelQuery->limit($this->limit);
+        $modelQuery->limit($this->limit);
+        return $modelQuery;
     }
 
 }

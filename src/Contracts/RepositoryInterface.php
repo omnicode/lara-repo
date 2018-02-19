@@ -3,6 +3,7 @@ namespace LaraRepo\Contracts;
 
 interface RepositoryInterface
 {
+    const GROUP = 'list';
 
     /**
      * @return mixed
@@ -13,6 +14,16 @@ interface RepositoryInterface
      * @return mixed
      */
     public function getModel();
+
+    /**
+     * @return mixed
+     */
+    public function getModelQuery();
+
+    /**
+     * @return mixed
+     */
+    public function resetModelQuery();
 
     /**
      * @return mixed
@@ -43,7 +54,7 @@ interface RepositoryInterface
      * @param string $group
      * @return mixed
      */
-    public function getIndexableColumns($full = false, $hidden = true, $group = 'list');
+    public function getIndexableColumns($full = false, $hidden = true, $group = self::GROUP);
 
     /**
      * @param bool $full
@@ -51,7 +62,7 @@ interface RepositoryInterface
      * @param string $group
      * @return mixed
      */
-    public function getShowableColumns($full = false, $hidden = true, $group = 'list');
+    public function getShowableColumns($full = false, $hidden = true, $group = self::GROUP);
 
     /**
      * @return mixed
@@ -68,7 +79,7 @@ interface RepositoryInterface
      * @param string $group
      * @return mixed
      */
-    public function getSortableColumns($column = null, $group = 'list');
+    public function getSortableColumns($column = null, $group = self::GROUP);
 
     /**
      * @return mixed
@@ -76,12 +87,12 @@ interface RepositoryInterface
     public function getStatusColumn();
 
     /**
-     * @param bool $column
+     * @param null $column
      * @param string $order
      * @param string $group
      * @return mixed
      */
-    public function setSortingOptions($column = false, $order = 'asc', $group = 'list');
+    public function setSortingOptions($column = null, $order = 'asc', $group = self::GROUP);
 
     /**
      * @return mixed
@@ -104,11 +115,11 @@ interface RepositoryInterface
 
     /**
      * @param array $data
-     * @param $field
+     * @param $attribute
      * @param $value
      * @return mixed
      */
-    public function createWith(array $data, $field, $value);
+    public function createWith(array $data, $attribute, $value);
 
     /**
      * @param $column
@@ -130,7 +141,7 @@ interface RepositoryInterface
      * @param array $conditions
      * @return mixed
      */
-    public function updateAll(array $data, array $conditions);
+    public function updateBased(array $data, array $conditions);
 
     /**
      * @param $id
@@ -139,78 +150,72 @@ interface RepositoryInterface
     public function destroy($id);
 
     /**
-     * @param $id
+     * @param null $columns
      * @return mixed
      */
-    public function delete($id);
+    public function all($columns = null);
+
+    /**
+     * @param null $columns
+     * @return mixed
+     */
+    public function first($columns = null);
+
+    /**
+     * @param null $columns
+     * @return mixed
+     */
+    public function last($columns = null);
+
+    /**
+     * @param $id
+     * @param null $columns
+     * @return mixed
+     */
+    public function find($id, $columns = null);
+
+    /**
+     * @param $id
+     * @param null $columns
+     * @return mixed
+     */
+    public function findForShow($id, $columns = null);
 
     /**
      * @param $attribute
      * @param $value
+     * @param null $columns
      * @return mixed
      */
-    public function deleteBy($attribute, $value);
-
-    /**
-     * @param array $columns
-     * @return mixed
-     */
-    public function all($columns = ['*']);
-
-    /**
-     * @param array $columns
-     * @return mixed
-     */
-    public function first($columns = []);
-
-    /**
-     * @param array $columns
-     * @return mixed
-     */
-    public function last($columns = []);
-
-    /**
-     * @param $id
-     * @param array $columns
-     * @return mixed
-     */
-    public function find($id, $columns = ['*']);
-
-    /**
-     * @param $id
-     * @param array $columns
-     * @return mixed
-     */
-    public function findForShow($id, $columns = []);
+    public function findBy($attribute, $value, $columns = null);
 
     /**
      * @param $attribute
      * @param $value
-     * @param array $columns
+     * @param null $columns
      * @return mixed
      */
-    public function findBy($attribute, $value, $columns = ['*']);
-
-    /**
-     * @param $attribute
-     * @param $value
-     * @param array $columns
-     * @return mixed
-     */
-    public function findAllBy($attribute, $value, $columns = ['*']);
+    public function findAllBy($attribute, $value, $columns = null);
 
     /**
      * @param $id
-     * @param $field
+     * @param $attribute
      * @return mixed
      */
-    public function findField($id, $field);
+    public function findAttribute($id, $attribute);
 
     /**
      * @param $id
      * @return mixed
      */
     public function findFillable($id);
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @return mixed
+     */
+    public function findAllFillable($attribute, $value);
 
     /**
      * @param $id
@@ -233,31 +238,32 @@ interface RepositoryInterface
      * @param array $listable
      * @return mixed
      */
-    public function findList($active = true, $listable = []);
+    public function findList($active = true, $listable = null);
 
     /**
      * @param $attribute
      * @param $value
      * @param bool $active
+     * @param null $listable
      * @return mixed
      */
-    public function findListBy($attribute, $value, $active = true);
+    public function findListBy($attribute, $value, $active = true, $listable = null);
 
     /**
      * @param int $perPage
-     * @param array $columns
+     * @param null $columns
      * @param string $group
      * @return mixed
      */
-    public function paginate($perPage = 15, $columns = [], $group = 'list');
+    public function paginate($perPage = 15, $columns = null, $group = self::GROUP);
 
     /**
-     * @param $field
+     * @param $attribute
      * @param $value
      * @param $cmp
      * @return mixed
      */
-    public function paginateWhere($field = '', $value = '', $cmp = '=');
+    public function paginateWhere($attribute = '', $value = '', $cmp = '=');
 
     /**
      * @param null $attribute
@@ -279,6 +285,4 @@ interface RepositoryInterface
      * @return mixed
      */
     public function existsWhere($attribute, $value);
-
-
 }

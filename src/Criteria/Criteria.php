@@ -13,4 +13,5 @@ abstract class Criteria
      */
     public abstract function apply($modelQuery, RepositoryInterface $repository);
 
+
 }

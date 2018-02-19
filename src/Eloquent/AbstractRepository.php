@@ -1,17 +1,14 @@
 <?php
 namespace LaraRepo\Eloquent;
 
-use Illuminate\Container\Container as App;
+use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-
 use LaraTools\Utility\LaraUtil;
-
 use LaraRepo\Contracts\CriteriaInterface;
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Contracts\TransactionInterface;
-
 use LaraRepo\Criteria\Criteria;
 use LaraRepo\Criteria\Order\SortCriteria;
 use LaraRepo\Criteria\Select\SelectFillableCriteria;
@@ -20,7 +17,6 @@ use LaraRepo\Criteria\Where\ActiveCriteria;
 use LaraRepo\Criteria\Where\WhereCriteria;
 use LaraRepo\Criteria\Where\WhereInCriteria;
 use LaraRepo\Criteria\With\RelationCriteria;
-
 use LaraRepo\Exceptions\RepositoryException;
 
 abstract class AbstractRepository implements RepositoryInterface, CriteriaInterface, TransactionInterface
@@ -47,18 +43,11 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     protected $skipCriteria = false;
 
     /**
-     * @var App
-     */
-    private $app;
-
-    /**
-     * @param App $app
+     * AbstractRepository constructor.
      * @param Collection $collection
-     * @throws \LaraRepo\Exceptions\RepositoryException
      */
-    public function __construct(App $app, Collection $collection)
+    public function __construct(Collection $collection)
     {
-        $this->app = $app;
         $this->criteria = $collection;
         $this->resetScope();
         $this->makeModel();
@@ -82,14 +71,16 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function makeModel()
     {
-        $model = $this->app->make($this->modelClass());
+        $model = App::make($this->modelClass());
 
         if (!$model instanceof Model) {
             throw new RepositoryException("Class {$this->modelClass()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
         }
 
         $this->model = $model;
-        return $this->modelQuery = $model->newQuery();
+        $this->modelQuery = $model->newQuery();
+
+        return $this->model;
     }
 
     /**
@@ -98,6 +89,23 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModelQuery()
+    {
+        return $this->modelQuery;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetModelQuery()
+    {
+        $this->modelQuery = $this->model->newQuery();
+        return $this;
     }
 
     /**
@@ -147,7 +155,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      *
      * @return string
      */
-    public function getIndexableColumns($full = false, $hidden = true, $group = 'list')
+    public function getIndexableColumns($full = false, $hidden = true, $group = self::GROUP)
     {
         return $this->model->getIndexable($full, $hidden, $group);
     }
@@ -157,7 +165,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      *
      * @return string
      */
-    public function getShowableColumns($full = false, $hidden = true, $group = 'list')
+    public function getShowableColumns($full = false, $hidden = true, $group = self::GROUP)
     {
         return $this->model->getShowable($full, $hidden, $group);
     }
@@ -187,9 +195,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param string $group
      * @return mixed
      */
-    public function getSortableColumns($column = null, $group = 'list')
+    public function getSortableColumns($column = null, $group = self::GROUP)
     {
-        return $this->model->getSortable($column, $group = 'list');
+        return $this->model->getSortable($column, $group);
     }
 
     /**
@@ -206,9 +214,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param string $group
      * @return bool
      */
-    public function setSortingOptions($column = false, $order = 'asc', $group = 'list')
+    public function setSortingOptions($column = null, $order = 'asc', $group = self::GROUP)
     {
-        if ($column === false) {
+        if (is_null($column)) {
             return true;
         }
 
@@ -217,7 +225,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
         // check if column is allowed to be sorted
         if ($this->getSortableColumns($column, $group)) {
             $order = strtolower($order);
-            $order = $order == 'desc' ? $order : 'asc';
+            $order = ($order == 'desc') ? $order : 'asc';
             $this->pushCriteria(new SortCriteria($column, $order));
         }
     }
@@ -254,13 +262,13 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param array $data
-     * @param $field
+     * @param $attribute
      * @param $value
      * @return mixed
      */
-    public function createWith(array $data, $field, $value)
+    public function createWith(array $data, $attribute, $value)
     {
-        $data[$field] = $value;
+        $data[$attribute] = $value;
         return $this->create($data);
     }
 
@@ -283,9 +291,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function update(array $data, $id, $attribute = "id")
     {
+        $this->pushCriteria(new WhereCriteria($attribute, $id));
         $this->applyCriteria();
-        return $this->modelQuery->where($this->fixColumns($attribute), '=',
-            $id)->update($data);
+        return $this->modelQuery->update($data);
     }
 
     /**
@@ -293,20 +301,18 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param array $conditions
      * @return mixed
      */
-    public function updateAll(array $data, array $conditions)
+    public function updateBased(array $data, array $conditions)
     {
-        $this->applyCriteria();
-        $query = $this->modelQuery;
-
         foreach ($conditions as $attribute => $value) {
             if (is_array($value)) {
-                $query->whereIn($attribute, $value);
+                $this->pushCriteria(new WhereInCriteria($attribute, $value));
             } else {
-                $query->where($attribute, '=', $value);
+                $this->pushCriteria(new WhereCriteria($attribute, $value));
             }
         }
 
-        return $query->update($data);
+        $this->applyCriteria();
+        return $this->modelQuery->update($data);
     }
 
     /**
@@ -318,19 +324,10 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
         $model = $this->find($id);
 
         if (!empty($model)) {
-            return $this->find($id)->delete();
+            return $model->delete();
         }
 
         return false;
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function delete($id)
-    {
-        return $this->destroy($id);
     }
 
     /**
@@ -338,7 +335,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param $value
      * @return bool
      */
-    public function deleteBy($attribute, $value)
+    public function destroyBy($attribute, $value)
     {
         $model = $this->findBy($attribute, $value);
 
@@ -350,43 +347,34 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * @param array $columns
+     * @param null $columns
      * @return mixed
      */
-    public function all($columns = ['*'])
+    public function all($columns = null)
     {
-        if (!empty($columns) && getFirstValue($columns) != '*') {
-            $this->pushCriteria(new SelectCriteria($columns));
-        }
-
+        $this->fixSelectedColumns($columns);
         $this->applyCriteria();
         return $this->modelQuery->get();
     }
 
     /**
-     * @param array $columns
+     * @param null $columns
      * @return mixed
      */
-    public function first($columns = [])
+    public function first($columns = null)
     {
-        if (!empty($columns)) {
-            $this->pushCriteria(new SelectCriteria($columns));
-        }
-
+        $this->fixSelectedColumns($columns);
         $this->applyCriteria();
         return $this->modelQuery->first();
     }
 
     /**
-     * @param $columns
+     * @param null $columns
      * @return mixed
      */
-    public function last($columns = [])
+    public function last($columns = null)
     {
-        if (!is_array($columns)) {
-            $columns = [$columns];
-        }
-
+        $this->fixSelectedColumns($columns);
         $id = $this->getKeyName();
         $this->pushCriteria(new SortCriteria($id, 'desc'));
         return $this->first($columns);
@@ -394,15 +382,12 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $id
-     * @param array $columns
+     * @param null $columns
      * @return mixed
      */
-    public function find($id, $columns = ['*'])
+    public function find($id, $columns = null)
     {
-        if (!empty($columns) && getFirstValue($columns) != '*') {
-            $this->pushCriteria(new SelectCriteria($columns));
-        }
-
+        $this->fixSelectedColumns($columns);
         $this->applyCriteria();
         return $this->modelQuery->find($id);
     }
@@ -412,10 +397,12 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param array $columns
      * @return mixed
      */
-    public function findForShow($id, $columns = [])
+    public function findForShow($id, $columns = null)
     {
-        if (empty($columns)) {
+        if (is_null($columns)) {
             $columns = $this->model->getShowAble();
+        } elseif (is_array($columns)) {
+            make_array($columns);
         }
 
         return $this->find($id, $columns);
@@ -424,10 +411,10 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     /**
      * @param $attribute
      * @param $value
-     * @param array $columns
+     * @param null $columns
      * @return mixed
      */
-    public function findBy($attribute, $value, $columns = ['*'])
+    public function findBy($attribute, $value, $columns = null)
     {
         $this->findByCriteria($attribute, $value, $columns);
         $this->applyCriteria();
@@ -437,10 +424,10 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     /**
      * @param $attribute
      * @param $value
-     * @param array $columns
+     * @param null $columns
      * @return mixed
      */
-    public function findAllBy($attribute, $value, $columns = ['*'])
+    public function findAllBy($attribute, $value, $columns = null)
     {
         $this->findByCriteria($attribute, $value, $columns);
         $this->applyCriteria();
@@ -449,15 +436,15 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $id
-     * @param $field
+     * @param $attribute
      * @return bool
      */
-    public function findField($id, $field)
+    public function findAttribute($id, $attribute)
     {
-        $data = $this->find($id, [$field]);
+        $data = $this->find($id, [$attribute]);
 
-        if (!empty($data)) {
-            return $data[$field];
+        if (!empty($data[$attribute])) {
+            return $data[$attribute];
         }
 
         return false;
@@ -473,6 +460,17 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     {
         $this->pushCriteria(new SelectFillableCriteria(true));
         return $this->find($id);
+    }
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @return mixed
+     */
+    public function findAllFillable($attribute, $value)
+    {
+        $this->pushCriteria(new SelectFillableCriteria(true));
+        return $this->findAllBy($attribute, $value);
     }
 
     /**
@@ -507,9 +505,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param array $listable
      * @return mixed
      */
-    public function findList($active = true, $listable = [])
+    public function findList($active = true, $listable = null)
     {
-        if (empty($listable)) {
+        if (is_null($listable)) {
             $listable = $this->getListableColumns();
         }
 
@@ -522,19 +520,20 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
         }
 
 
-        return $this->all($this->fixColumns($listable['columns']))->pluck($listable['value'], $listable['key'])->toArray();
+        return $this->all($this->fixColumns($listable['columns']))->pluck($listable['value'], $listable['key'])->all();
     }
 
     /**
      * @param $attribute
      * @param $value
-     * @param bool|true $active
+     * @param bool $active
+     * @param null $listable
      * @return mixed
      */
-    public function findListBy($attribute, $value, $active = true)
+    public function findListBy($attribute, $value, $active = true, $listable = null)
     {
         $this->pushCriteria(new WhereCriteria($attribute, $value));
-        return $this->findList($active);
+        return $this->findList($active, $listable);
     }
 
     /**
@@ -543,9 +542,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param string $group
      * @return mixed
      */
-    public function paginate($perPage = 15, $columns = [], $group = 'list')
+    public function paginate($perPage = 15, $columns = null, $group = self::GROUP)
     {
-        if (empty($columns)) {
+        if (is_null($columns)) {
             $columns = $this->getIndexableColumns(false, true, $group);
         }
 
@@ -554,14 +553,14 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * @param string $field
+     * @param string $attribute
      * @param string $value
      * @param string $cmp
      * @return mixed
      */
-    public function paginateWhere($field = '', $value = '', $cmp = '=')
+    public function paginateWhere($attribute = '', $value = '', $cmp = '=')
     {
-        $this->pushCriteria(new WhereCriteria($field, $value, $cmp));
+        $this->pushCriteria(new WhereCriteria($attribute, $value, $cmp));
         return $this->paginate();
     }
 
@@ -611,13 +610,24 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param $value
      * @param array $columns
      */
-    private function findByCriteria($attribute, $value, $columns = ['*'])
+    protected function findByCriteria($attribute, $value, $columns = null)
     {
         $this->pushCriteria(new WhereCriteria($attribute, $value));
+        $this->fixSelectedColumns($columns);
+    }
 
-        if (!empty($columns) && getFirstValue($columns) !== '*') {
-            $this->pushCriteria(new SelectCriteria($columns));
+    /**
+     * @param $columns
+     */
+    protected function fixSelectedColumns($columns)
+    {
+        if (is_null($columns)) {
+            $columns = $this->getFillableColumns();
+        } elseif (!is_array($columns)) {
+            make_array($columns);
         }
+
+        $this->pushCriteria(new SelectCriteria($columns));
     }
 
     /*************************************
@@ -643,6 +653,21 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
+     * @param bool $resetQuery
+     * @return $this
+     */
+    public function resetCriteria($resetQuery = true)
+    {
+        $this->criteria = App::make(Collection::class);
+
+        if ($resetQuery) {
+            $this->resetModelQuery();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return $this
      */
     public function resetScope()
@@ -657,7 +682,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function pushCriteria(Criteria $criteria)
     {
-        if (!in_array($criteria, $this->criteria->toArray())) {
+        if (!$this->criteria->contains($criteria)) {
             $this->criteria->push($criteria);
         }
         return $this;

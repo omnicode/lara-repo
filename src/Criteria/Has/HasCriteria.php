@@ -41,7 +41,8 @@ class HasCriteria extends Criteria
      */
     public function apply($modelQuery, RepositoryInterface $repository)
     {
-        return $modelQuery->has($this->columns, $this->cmp,$this->value);
+        $modelQuery->has($this->columns, $this->cmp,$this->value);
+        return $modelQuery;
     }
 
 }
