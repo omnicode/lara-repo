@@ -1,9 +1,9 @@
 <?php
+
 namespace LaraRepo\Criteria\Traits;
 
 trait WhereInTraitCriteria
 {
-
     /**
      * @param $query
      * @param $repository
@@ -23,5 +23,4 @@ trait WhereInTraitCriteria
         }
         return $query;
     }
-
 }

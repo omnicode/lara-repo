@@ -6,8 +6,9 @@ use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Limit\LimitCriteria;
 use LaraTest\Traits\AssertionTraits;
 use LaraTest\Traits\MockTraits;
+use Tests\TestCase;
 
-class LimitCriteriaTest extends \TestCase
+class LimitCriteriaTest extends TestCase
 {
     use MockTraits, AssertionTraits;
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Join;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -74,5 +75,4 @@ class InnerJoinRelationCriteria extends Criteria
 
         return $modelQuery;
     }
-
 }

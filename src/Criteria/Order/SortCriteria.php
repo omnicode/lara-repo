@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Order;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -61,5 +62,4 @@ class SortCriteria extends Criteria
     {
 
     }
-
 }

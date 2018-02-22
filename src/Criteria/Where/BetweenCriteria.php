@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Where;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -42,5 +43,4 @@ class BetweenCriteria extends Criteria
     {
         return $modelQuery->whereBetween($repository->fixColumns($this->column), [$this->from, $this->to]);
     }
-
 }

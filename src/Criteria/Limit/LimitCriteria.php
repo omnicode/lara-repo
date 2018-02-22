@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Limit;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -30,5 +31,4 @@ class LimitCriteria extends Criteria
         $modelQuery->limit($this->limit);
         return $modelQuery;
     }
-
 }

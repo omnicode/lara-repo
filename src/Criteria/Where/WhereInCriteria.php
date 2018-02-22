@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Where;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -41,5 +42,4 @@ class WhereInCriteria extends Criteria
     {
         return $modelQuery->whereIn($repository->fixColumns($this->attribute), $this->values);
     }
-
 }

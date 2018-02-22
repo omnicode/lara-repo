@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Offset;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -20,13 +21,14 @@ class OffsetCriteria extends Criteria
         $this->offset= $offset;
     }
 
-    /***
+    /**
      * @param $modelQuery
      * @param RepositoryInterface $repository
      * @return mixed
      */
     public function apply($modelQuery, RepositoryInterface $repository)
     {
-        return $modelQuery->offset($this->offset);
+        $modelQuery->offset($this->offset);
+        return $modelQuery;
     }
 }

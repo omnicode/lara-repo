@@ -6,8 +6,9 @@ use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Has\HasCriteria;
 use LaraTest\Traits\AssertionTraits;
 use LaraTest\Traits\MockTraits;
+use Tests\TestCase;
 
-class HasCriteriaTest extends \TestCase
+class HasCriteriaTest extends TestCase
 {
     use MockTraits, AssertionTraits;
 

@@ -6,8 +6,9 @@ use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Distinct\DistinctCriteria;
 use LaraTest\Traits\AssertionTraits;
 use LaraTest\Traits\MockTraits;
+use Tests\TestCase;
 
-class DistinctCriteriaTest extends \TestCase
+class DistinctCriteriaTest extends TestCase
 {
     use MockTraits, AssertionTraits;
 

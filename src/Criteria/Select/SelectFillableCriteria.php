@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Select;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -61,5 +62,4 @@ class SelectFillableCriteria extends Criteria
 
         return $modelQuery->addSelect($repository->fixColumns($columns));
     }
-
 }

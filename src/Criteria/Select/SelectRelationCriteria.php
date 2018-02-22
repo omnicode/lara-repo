@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Select;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -58,5 +59,4 @@ class SelectRelationCriteria extends Criteria
 
         return $modelQuery->addSelect($repository->fixColumns($this->columns, $table, $this->prefix));
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Where;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -18,7 +19,6 @@ class WhereHasRelationCriteria extends Criteria
      * @var
      */
     protected $where;
-
 
     /**
      * WhereHasRelationCriteria constructor.
@@ -52,5 +52,4 @@ class WhereHasRelationCriteria extends Criteria
         });
         return $modelQuery;
     }
-
 }

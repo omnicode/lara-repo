@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Join;
 
 use Illuminate\Database\Eloquent\RelationNotFoundException;
@@ -64,5 +65,4 @@ class LeftJoinCriteria extends Criteria
 
         return $modelQuery;
     }
-
 }

@@ -1,17 +1,22 @@
 <?php
+
 namespace LaraRepo\Criteria\Where;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
-use LaraTools\Utility\LaraUtil;
+use LaraSupport\Facades\LaraDB;
 
 class ActiveCriteria extends Criteria
 {
-
+    /**
+     * @param $modelQuery
+     * @param RepositoryInterface $repository
+     * @return mixed
+     */
     public function apply($modelQuery, RepositoryInterface $repository)
     {
         $column = $repository->getStatusColumn();
-        if ($column && LaraUtil::hasColumn($repository->getTable(), $column)) {
+        if ($column && LaraDB::hasColumn($repository->getTable(), $column)) {
             return $modelQuery->where(
                 $repository->fixColumns($repository->getStatusColumn()), '=',
                 \ConstGeneralStatus::Active);
@@ -19,5 +24,4 @@ class ActiveCriteria extends Criteria
 
         return $modelQuery;
     }
-
 }

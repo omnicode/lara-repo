@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Has;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -44,5 +45,4 @@ class HasCriteria extends Criteria
         $modelQuery->has($this->columns, $this->cmp,$this->value);
         return $modelQuery;
     }
-
 }

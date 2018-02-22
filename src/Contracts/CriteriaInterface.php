@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Contracts;
 
 use LaraRepo\Criteria\Criteria;
