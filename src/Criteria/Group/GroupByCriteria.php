@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Group;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -38,5 +39,4 @@ class GroupByCriteria extends Criteria
 
         return $modelQuery;
     }
-
 }

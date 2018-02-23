@@ -2,10 +2,13 @@
 
 namespace Tests\Criteria\Join;
 
-class InnerJoinCriteriaTest extends \TestCase
+use Tests\TestCase;
+
+class InnerJoinCriteriaTest extends TestCase
 {
     public function testApply()
     {
         //TODO
+        $this->assertTrue(true);
     }
 }

@@ -1,13 +1,10 @@
-# Lara-Repo
 
-Version compatibility
-
-Lara Repo                                                     | Laravel
-------------------------------------------------------------- | ----------------
-[0.0.x](https://github.com/omnicode/lara-repo)                | 5.1 - 5.3
-[1.0.x](https://github.com/omnicode/lara-repo/tree/1.0.0)     | 5.4
-[2.0.x](https://github.com/omnicode/lara-repo/tree/version2.0)| 5.5
-
+<p align="center">
+<a href="https://travis-ci.org/omnicode/lara-repo"><img src="https://travis-ci.org/omnicode/lara-repo.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/omnicode/lara-repo"><img src="https://poser.pugx.org/omnicode/lara-repo/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/omnicode/lara-repo"><img src="https://poser.pugx.org/omnicode/lara-repo/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/omnicode/lara-repo"><img src="https://poser.pugx.org/omnicode/lara-repo/license.svg" alt="License"></a>
+</p>
 
 ## Installation
 

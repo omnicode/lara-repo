@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Contracts;
 
 interface RepositoryInterface
@@ -67,11 +68,6 @@ interface RepositoryInterface
     /**
      * @return mixed
      */
-    public function getSearchableColumns();
-
-    /**
-     * @return mixed
-     */
     public function getListableColumns();
 
     /**
@@ -123,10 +119,17 @@ interface RepositoryInterface
 
     /**
      * @param $column
-     * @param $value
+     * @param int $value
      * @return mixed
      */
-    public function increment($column, $value);
+    public function increment($column, $value = 1);
+
+    /**
+     * @param $column
+     * @param int $value
+     * @return mixed
+     */
+    public function decrement($column, $value = 1);
 
     /**
      * @param array $data
@@ -134,7 +137,7 @@ interface RepositoryInterface
      * @param string $attribute
      * @return mixed
      */
-    public function update(array $data, $id, $attribute = "id");
+    public function update(array $data, $id, $attribute = '_id');
 
     /**
      * @param array $data
@@ -148,6 +151,19 @@ interface RepositoryInterface
      * @return mixed
      */
     public function destroy($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id);
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @return mixed
+     */
+    public function destroyBy($attribute, $value);
 
     /**
      * @param null $columns
@@ -226,12 +242,12 @@ interface RepositoryInterface
 
     /**
      * @param $id
-     * @param $field
+     * @param $attribute
      * @param $value
      * @param string $cmp
      * @return mixed
      */
-    public function findFillableWhere($id, $field, $value, $cmp = '=');
+    public function findFillableWhere($id, $attribute, $value, $cmp = '=');
 
     /**
      * @param bool $active

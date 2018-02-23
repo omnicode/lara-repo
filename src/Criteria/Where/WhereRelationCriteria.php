@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Where;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -6,7 +7,6 @@ use LaraRepo\Criteria\Criteria;
 
 class WhereRelationCriteria extends Criteria
 {
-
     /**
      * @var
      */
@@ -60,5 +60,4 @@ class WhereRelationCriteria extends Criteria
 
         return $modelQuery->where($repository->fixColumns($this->attribute, $table), $this->comparison, $this->value);
     }
-
 }

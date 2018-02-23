@@ -1,11 +1,12 @@
 <?php
+
 namespace LaraRepo\Eloquent;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use LaraTools\Utility\LaraUtil;
+use LaraRepo\Criteria\Limit\LimitCriteria;
 use LaraRepo\Contracts\CriteriaInterface;
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Contracts\TransactionInterface;
@@ -18,10 +19,10 @@ use LaraRepo\Criteria\Where\WhereCriteria;
 use LaraRepo\Criteria\Where\WhereInCriteria;
 use LaraRepo\Criteria\With\RelationCriteria;
 use LaraRepo\Exceptions\RepositoryException;
+use LaraSupport\Facades\LaraDB;
 
 abstract class AbstractRepository implements RepositoryInterface, CriteriaInterface, TransactionInterface
 {
-
     /**
      * @var
      */
@@ -137,7 +138,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
             $table = $this->getTable();
         }
 
-        return LaraUtil::getFullColumns($columns, $table, $prefix);
+        return LaraDB::getFullColumns($columns, $table, $prefix);
     }
 
     /**
@@ -168,14 +169,6 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     public function getShowableColumns($full = false, $hidden = true, $group = self::GROUP)
     {
         return $this->model->getShowable($full, $hidden, $group);
-    }
-    
-    /**
-     *
-     */
-    public function getSearchableColumns()
-    {
-        return $this->model->getSearchable();
     }
 
     /**
@@ -209,7 +202,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * @param bool $column
+     * @param null $column
      * @param string $order
      * @param string $group
      * @return bool
@@ -274,13 +267,24 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $column
-     * @param $value
+     * @param int $value
      * @return mixed
      */
-    public function increment($column, $value)
+    public function increment($column, $value = 1)
     {
         $this->applyCriteria();
         return $this->modelQuery->increment($column, $value);
+    }
+
+    /**
+     * @param $column
+     * @param int $value
+     * @return mixed
+     */
+    public function decrement($column, $value = 1)
+    {
+        $this->applyCriteria();
+        return $this->modelQuery->decrement($column, $value);
     }
 
     /**
@@ -289,8 +293,12 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      * @param string $attribute
      * @return mixed
      */
-    public function update(array $data, $id, $attribute = "id")
+    public function update(array $data, $id, $attribute = '_id')
     {
+        if ($attribute == '_id') {
+            $attribute = $this->getKeyName();
+        }
+
         $this->pushCriteria(new WhereCriteria($attribute, $id));
         $this->applyCriteria();
         return $this->modelQuery->update($data);
@@ -321,13 +329,17 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function destroy($id)
     {
-        $model = $this->find($id);
-
-        if (!empty($model)) {
-            return $model->delete();
-        }
-
-        return false;
+        $this->pushCriteria(new WhereCriteria($this->getKeyName(), $id));
+        $this->applyCriteria();
+        return $this->modelQuery->delete();
+    }
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        return $this->destroy($id);
     }
 
     /**
@@ -337,13 +349,22 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function destroyBy($attribute, $value)
     {
-        $model = $this->findBy($attribute, $value);
+        $this->pushCriteria(new WhereCriteria($attribute, $value));
+        $this->pushCriteria(new LimitCriteria(1));
+        $this->applyCriteria();
+        return $this->modelQuery->delete();
+    }
 
-        if(!empty($model)) {
-            return $model->delete();
-        }
-
-        return false;
+    /**
+     * @param $attribute
+     * @param $value
+     * @return bool
+     */
+    public function destroyAllBy($attribute, $value)
+    {
+        $this->pushCriteria(new WhereCriteria($attribute, $value));
+        $this->applyCriteria();
+        return $this->modelQuery->delete();
     }
 
     /**
@@ -489,14 +510,14 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $id
-     * @param $field
+     * @param $attribute
      * @param $value
      * @param string $cmp
      * @return mixed
      */
-    public function findFillableWhere($id, $field, $value, $cmp = '=')
+    public function findFillableWhere($id, $attribute, $value, $cmp = '=')
     {
-        $this->pushCriteria(new WhereCriteria($field, $value, $cmp));
+        $this->pushCriteria(new WhereCriteria($attribute, $value, $cmp));
         return $this->findFillable($id);
     }
 
@@ -518,7 +539,6 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
         if (!empty($listable['relations'])) {
             $this->pushCriteria(new RelationCriteria($listable['relations']));
         }
-
 
         return $this->all($this->fixColumns($listable['columns']))->pluck($listable['value'], $listable['key'])->all();
     }
@@ -591,7 +611,8 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function exists($id)
     {
-        return $this->existsWhere('id', $id);
+        $primaryKey = $this->getKeyName();
+        return $this->existsWhere($primaryKey, $id);
     }
 
     /**
@@ -617,12 +638,12 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * @param $columns
+     * @param null $columns
      */
-    protected function fixSelectedColumns($columns)
+    protected function fixSelectedColumns($columns = null)
     {
         if (is_null($columns)) {
-            $columns = $this->getFillableColumns();
+            $columns = array_merge([$this->getKeyName()], $this->getFillableColumns());
         } elseif (!is_array($columns)) {
             make_array($columns);
         }
@@ -742,5 +763,4 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     public function rollbackTransaction() {
         return DB::rollBack();
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Search;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -6,7 +7,6 @@ use LaraRepo\Criteria\Criteria;
 
 class SearchCriteria extends Criteria
 {
-    // @ TODO move class in LaraRepo
     /**
      * @var
      */
@@ -69,5 +69,4 @@ class SearchCriteria extends Criteria
 
         return $modelQuery;
     }
-
 }

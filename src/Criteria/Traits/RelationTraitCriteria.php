@@ -1,6 +1,8 @@
 <?php
+
 namespace LaraRepo\Criteria\Traits;
 
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use LaraRepo\Contracts\RepositoryInterface;
 
 trait RelationTraitCriteria
@@ -22,5 +24,4 @@ trait RelationTraitCriteria
         $related = $repository->getRelations()[$this->relation];
         return $related->getRelated()->getTable();
     }
-
 }

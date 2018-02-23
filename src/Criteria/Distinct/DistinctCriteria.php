@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraRepo\Criteria\Distinct;
 
 use LaraRepo\Contracts\RepositoryInterface;
@@ -16,5 +17,4 @@ class DistinctCriteria extends Criteria
         $modelQuery->distinct();
         return $modelQuery;
     }
-
 }

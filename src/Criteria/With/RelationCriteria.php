@@ -3,7 +3,7 @@ namespace LaraRepo\Criteria\With;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
-use LaraTools\Utility\LaraUtil;
+use LaraSupport\LaraDB;
 
 // @TODO - add relation options
 class RelationCriteria extends Criteria
@@ -69,7 +69,7 @@ class RelationCriteria extends Criteria
                             $query->getForeignKey()
                         ];
 
-                        $columns = LaraUtil::getFullColumns($columns, $firstRelated->getTable());
+                        $columns = LaraDB::getFullColumns($columns, $firstRelated->getTable());
                         $query->addSelect($columns);
                     };
                 }
@@ -79,7 +79,7 @@ class RelationCriteria extends Criteria
                 $relation = $modelRelations[$k];
 
                 // @TODO - create constants by relationship names
-                if (in_array(LaraUtil::getRelationType($relation), ['HasMany', 'BelongsToMany'])) {
+                if (in_array(class_basename($relation), ['HasMany', 'BelongsToMany'])) {
                     $foreignKeyColumn = $this->getRelationForeginKeyName($relation);
                 }
             }
@@ -115,12 +115,12 @@ class RelationCriteria extends Criteria
             }
 
             $relations[$k] = function ($query) use ($columns, $where, $orders) {
-                $columns = LaraUtil::getFullColumns($columns, $query->getRelated()->getTable());
+                $columns = LaraDB::getFullColumns($columns, $query->getRelated()->getTable());
                 $query->addSelect($columns);
 
                 if ($orders) {
                     foreach ($orders as $field => $type) {
-                        $query->orderBy(LaraUtil::getFullColumns($field, $query->getRelated()->getTable()), $type);
+                        $query->orderBy(LaraDB::getFullColumns($field, $query->getRelated()->getTable()), $type);
                     }
                 }
 
@@ -131,7 +131,7 @@ class RelationCriteria extends Criteria
                                 $vals
                             ];
                         }
-                        $query->whereIn(LaraUtil::getFullColumns($col, $query->getRelated()->getTable()), $vals);
+                        $query->whereIn(LaraDB::getFullColumns($col, $query->getRelated()->getTable()), $vals);
                     }
                 }
             };
