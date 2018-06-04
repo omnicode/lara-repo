@@ -9,14 +9,14 @@
         }
     ],
     "require": {
-        "laravel/framework": "5.5.*",
-        "omnicode/lara-support": "~2.0"
+        "laravel/framework": "5.6.*",
+        "omnicode/lara-support": "~3.0"
     },
     "require-dev": {
         "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0",
+        "phpunit/phpunit": "~7.0",
         "orchestra/testbench": "~3.0",
-        "omnicode/lara-test": "~2.0"
+        "omnicode/lara-test": "~3.0"
     },
     "suggest": {
         "omnicode/lara-crud": "LaraRepo integrated with LaraCrud",
