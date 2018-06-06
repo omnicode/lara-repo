@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Repositories\Criteria;
+
+use LaraRepo\Contracts\RepositoryInterface;
+use LaraRepo\Criteria\Criteria;
+
+/**
+ * Class WhereNotCriteria
+ * @package App\Repositories\Criteria
+ */
+class WhereNotInCriteria extends Criteria
+{
+    /**
+     * @var
+     */
+    protected $column;
+
+    /**
+     * @var
+     */
+    protected $values;
+
+    /**
+     * WhereNotInCriteria constructor.
+     * @param $column
+     * @param $values
+     */
+    public function __construct($column, $values)
+    {
+        $this->column = $column;
+        $this->values = (array) $values;
+    }
+
+    /**
+     * @param $modelQuery
+     * @param RepositoryInterface $repository
+     * @return mixed
+     */
+    public function apply($modelQuery, RepositoryInterface $repository)
+    {
+        return $modelQuery->whereNotIn($this->column, $this->values);
+    }
+}
