@@ -18,9 +18,7 @@ class GroupByCriteria extends Criteria
     public function __construct($columns)
     {
         if (!is_array($columns)) {
-            $columns = [
-                $columns
-            ];
+            $columns = (array) $columns;
         }
 
         $this->columns = $columns;
