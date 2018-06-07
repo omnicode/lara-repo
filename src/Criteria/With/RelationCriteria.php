@@ -145,11 +145,15 @@ class RelationCriteria extends Criteria
      * @return mixed
      */
     private function getRelationForeginKeyName($relation) {
+        if (in_array('getQualifiedRelatedPivotKeyName', get_class_methods($relation))) {
+           return $relation->getQualifiedRelatedPivotKeyName();
+        }
+        
         if(in_array('getQualifiedForeignKeyName', get_class_methods($relation))) {
             // for Laravel 5.4
             return $relation->getQualifiedForeignKeyName();
         }
-
+        
         // for Laravel < 5.4
         return $relation->getForeignKey();
     }
