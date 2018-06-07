@@ -9,6 +9,10 @@ use LaraSupport\Facades\LaraDB;
 class ActiveCriteria extends Criteria
 {
     /**
+     * @var int
+     */
+    private $active = 1;
+    /**
      * @param $modelQuery
      * @param RepositoryInterface $repository
      * @return mixed
@@ -19,9 +23,8 @@ class ActiveCriteria extends Criteria
         if ($column && LaraDB::hasColumn($repository->getTable(), $column)) {
             return $modelQuery->where(
                 $repository->fixColumns($repository->getStatusColumn()), '=',
-                \ConstGeneralStatus::Active);
+                $this->active);
         }
-
         return $modelQuery;
     }
 }
