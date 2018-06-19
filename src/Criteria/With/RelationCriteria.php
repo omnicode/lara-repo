@@ -3,7 +3,7 @@ namespace LaraRepo\Criteria\With;
 
 use LaraRepo\Contracts\RepositoryInterface;
 use LaraRepo\Criteria\Criteria;
-use LaraSupport\LaraDB;
+use LaraSupport\Facades\LaraDB;
 
 // @TODO - add relation options
 class RelationCriteria extends Criteria
