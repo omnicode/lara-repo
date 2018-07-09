@@ -644,9 +644,8 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     {
         if (is_null($columns)) {
             $columns = array_merge([$this->getKeyName()], $this->getFillableColumns());
-        } elseif (!is_array($columns)) {
-            make_array($columns);
         }
+        $columns = (array) $columns;
 
         $this->pushCriteria(new SelectCriteria($columns));
     }
