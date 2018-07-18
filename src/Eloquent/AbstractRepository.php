@@ -422,9 +422,8 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     {
         if (is_null($columns)) {
             $columns = $this->model->getShowAble();
-        } elseif (is_array($columns)) {
-            make_array($columns);
         }
+        $columns = (array) $columns;
 
         return $this->find($id, $columns);
     }
